@@ -1,0 +1,28 @@
+---
+title: "World Happiness 2021"
+author: "Silvana Avramska Lukarska"
+date: "5/5/2021"
+output: html_document
+---
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+library(plotly)
+
+data <- read.csv("world-happiness-report-2021.csv")
+#dim(data)
+#str(data)
+
+#data$Regional.indicator <- as.factor(data$Regional.indicator)
+```
+
+
+```{r echo=FALSE, message=FALSE, warning = FALSE}
+fig <- plot_ly(data, x=~Healthy.life.expectancy, y=~Ladder.score, mode="markers",
+               color=~Regional.indicator, size=~Logged.GDP.per.capita,
+               text=~paste("Country:", Country.name, "<br>Ladder score:", Ladder.score, 
+                           "<br>GDP per capita:", Logged.GDP.per.capita ),
+               width = 1000, height = 600)
+
+fig %>% layout(xaxis=list(title="Healthy Life Expectancy"),
+               yaxis=list(title="Ladder Score"))
+```
